@@ -14,6 +14,8 @@ Wordly, an online language learning platform, wants to improve its user experien
 
 ```sh
 git clone https://github.com/dev-gaitano/wordly.git
+```
+```sh
 cd wordly
 ```
 
