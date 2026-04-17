@@ -1,9 +1,6 @@
 <div align="center">
-    <img src="https://res.cloudinary.com/diwkfbsgv/image/upload/q_auto/f_auto/v1776427289/logo-light_dyfohn.png" alt="banner_img">
+    <img src="https://res.cloudinary.com/diwkfbsgv/image/upload/h_160/v1776427289/logo-light_dyfohn.png" alt="banner_img">
 </div>
-
-<br/>
-<br/>
 
 Wordly, an online language learning platform, wants to improve its user experience by providing an interactive dictionary feature. This feature will allow users to search for words, view their definitions, and save their favorite terms for future reference—all on a single page without refreshing.
 
