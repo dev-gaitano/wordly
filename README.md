@@ -4,6 +4,12 @@
 
 Wordly, an online language learning platform, wants to improve its user experience by providing an interactive dictionary feature. This feature will allow users to search for words, view their definitions, and save their favorite terms for future reference—all on a single page without refreshing.
 
+## Features
+
+- **Search for words**: Allow users to input a word into an HTML form and fetch its definition from an external API.
+- **Display definition**: Dynamically show the word’s definition, part of speech, and example usage.
+- **Error handling**: Display an error message if a word is not found or if the API request fails.
+
 ## Getting started
 
 ```sh
