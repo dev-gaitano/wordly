@@ -1,4 +1,9 @@
-# WORDLY
+<div align="center">
+    <img src="./public/logo-light" alt="banner_img">
+</div>
+
+<br/>
+<br/>
 
 Wordly, an online language learning platform, wants to improve its user experience by providing an interactive dictionary feature. This feature will allow users to search for words, view their definitions, and save their favorite terms for future reference—all on a single page without refreshing.
 
