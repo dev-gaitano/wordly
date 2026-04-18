@@ -5,6 +5,8 @@
   --text-muted: hsla(0, 0%, 100%, 0.7);
   --card-bg: hsla(0, 0%, 100%, 0.1);
   --border: hsla(0, 0%, 100%, 0.2);
+  --success: hsl(110, 68%, 45%);
+  --info: hsl(54, 100%, 50%);
 }
 
 * {
@@ -103,6 +105,14 @@ nav {
 
 #search-btn:hover {
   opacity: 0.9;
+}
+
+#search-btn.success {
+  background-color: var(--success);
+}
+
+#search-btn.info {
+  background-color: var(--info);
 }
 
 /* Result Area */

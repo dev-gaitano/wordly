@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const wordData = await res.json()
         return wordData
       } else {
-        console.error('Failed to fetch word data');
-        console.log(res)
+        throw new Error("Word not found")
       }
     } catch (err) {
       console.log("Error fetching word: ", err)
+      throw err
     }
   }
 
@@ -149,13 +149,27 @@ document.addEventListener("DOMContentLoaded", () => {
   searchBtn.addEventListener("click", async (e) => {
     e.preventDefault()
 
-    // Search functionality
     const word = searchInput.value.trim()
-    const data = await fetchWordData(word)
+    if (!word) return
 
-    // Display
     displayArea.innerHTML = ""
     displayArea.classList.remove("hidden")
-    displayData(data)
+
+    try {
+      const data = await fetchWordData(word)
+      searchBtn.classList.add("success")
+      displayData(data)
+
+      setTimeout(() => searchBtn.classList.remove("success"), 1000)
+    } catch (err) {
+      searchBtn.classList.add("info")
+      setTimeout(() => searchBtn.classList.remove("info"), 1000)
+
+      const errorMsg = document.createElement("div")
+      errorMsg.classList.add("card-bg")
+      errorMsg.style.textAlign = "center"
+      errorMsg.innerHTML = `<h3>Oops! Word not found</h3><p>Try searching for another word.</p>`
+      displayArea.appendChild(errorMsg)
+    }
   })
 })
