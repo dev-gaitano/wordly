@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let partOfSpeech = []
       const definitions = []
       let synonyms = []
+      let antonyms = []
       meanings?.forEach(meaning => {
         // Get parts of speech
         partOfSpeech.push(meaning.partOfSpeech)
@@ -47,6 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Get synonyms
         synonyms.push(...meaning.synonyms)
+
+        // Get antonyms
+        antonyms.push(...meaning.antonyms)
       });
 
       // Create content display elements
@@ -56,7 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Main content
       const mainContent = document.createElement("section")
       mainContent.setAttribute("id", "main-content")
-      mainContent.classList.add("card-bg")
+      mainContent.classList.add("card-bg", "fade-el")
+      setTimeout(() => {
+        mainContent.classList.add("show")
+      }, 10)
 
       // content title
       const contentTitle = document.createElement("div")
@@ -113,30 +120,54 @@ document.addEventListener("DOMContentLoaded", () => {
       // synonyms
       const synonymsDiv = document.createElement("div")
       synonymsDiv.setAttribute("id", "synonyms-container")
-      synonymsDiv.classList.add("card-bg")
+      synonymsDiv.classList.add("card-bg", "fade-el")
+      setTimeout(() => {
+        synonymsDiv.classList.add("show")
+      }, 40)
 
       const synonymsTitle = document.createElement("h3")
       synonymsTitle.innerText = "Synonyms"
       synonymsDiv.appendChild(synonymsTitle)
 
-      synonyms.forEach((synonym) => {
-        const synonymsEl = document.createElement("p")
-        synonymsEl.innerText = synonym
-        synonymsDiv.appendChild(synonymsEl)
-      })
+      if (synonyms.length === 0) {
+        const noSynonymsEl = document.createElement("p")
+        noSynonymsEl.innerText = "No synonyms..."
+        synonymsDiv.appendChild(noSynonymsEl)
+      } else {
+        synonyms.forEach((synonym) => {
+          const synonymsEl = document.createElement("p")
+          synonymsEl.innerText = synonym
+          synonymsDiv.appendChild(synonymsEl)
+        })
+      }
 
       secondaryContent.appendChild(synonymsDiv)
 
-      // saved words
-      const savedDiv = document.createElement("div")
-      savedDiv.setAttribute("id", "saved-container")
-      savedDiv.classList.add("card-bg")
+      // antonyms
+      const antonymsDiv = document.createElement("div")
+      antonymsDiv.setAttribute("id", "antonyms-container")
+      antonymsDiv.classList.add("card-bg", "fade-el")
+      setTimeout(() => {
+        antonymsDiv.classList.add("show")
+      }, 70)
 
-      const savedTitle = document.createElement("h3")
-      savedTitle.innerText = "Saved words"
-      savedDiv.appendChild(savedTitle)
+      const antonymsTitle = document.createElement("h3")
+      antonymsTitle.innerText = "Antonyms"
+      antonymsDiv.appendChild(antonymsTitle)
 
-      secondaryContent.appendChild(savedDiv)
+      if (antonyms.length === 0) {
+        const noAntonymsEl = document.createElement("p")
+        noAntonymsEl.innerText = "No antonyms..."
+        antonymsDiv.appendChild(noAntonymsEl)
+      } else {
+        antonyms.forEach((antonym) => {
+          const antonymsEl = document.createElement("p")
+          antonymsEl.innerText = antonym
+          antonymsDiv.appendChild(antonymsEl)
+        })
+      }
+
+      secondaryContent.appendChild(antonymsDiv)
 
       content.appendChild(secondaryContent)
 
@@ -158,18 +189,21 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const data = await fetchWordData(word)
       searchBtn.classList.add("success")
+
+      // Display
       displayData(data)
 
       setTimeout(() => searchBtn.classList.remove("success"), 1000)
     } catch (err) {
       searchBtn.classList.add("info")
       setTimeout(() => searchBtn.classList.remove("info"), 1000)
-
-      const errorMsg = document.createElement("div")
-      errorMsg.classList.add("card-bg")
-      errorMsg.style.textAlign = "center"
-      errorMsg.innerHTML = `<h3>Oops! Word not found</h3><p>Try searching for another word.</p>`
-      displayArea.appendChild(errorMsg)
+      const infoMsg = document.createElement("div")
+      infoMsg.classList.add("message", "info", "card-bg", "fade-el")
+      infoMsg.innerHTML = `<h3>Oops! Word not found</h3><p>Try searching for another word</p>`
+      setTimeout(() => {
+        infoMsg.classList.add("show")
+      }, 40)
+      displayArea.appendChild(infoMsg)
     }
   })
 })
