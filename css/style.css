@@ -175,3 +175,52 @@ nav {
 #secondary-content h3 {
   margin-bottom: 12px;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #root-container {
+    padding: 16px;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+
+  #search-form {
+    width: 100%;
+  }
+
+  #content-container {
+    flex-direction: column;
+  }
+
+  #phonetics-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #secondary-content {
+    min-width: 100%;
+  }
+
+  #main-content h2 {
+    font-size: 32px;
+  }
+
+  .card-bg {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  #search-form {
+    flex-direction: column;
+  }
+
+  #search-btn {
+    width: 100%;
+  }
+}
