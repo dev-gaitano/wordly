@@ -10,17 +10,29 @@
 </head>
 
 <body>
-  <div id="root-container">
-    <div>
-      <input type="search" name="search-word" id="search-input" placeholder="Search word">
-      <button type="submit" id="search-btn">Search</button>
+  <div class="bg-blur">
+    <div id="root-container">
+      <nav>
+        <img src="https://res.cloudinary.com/diwkfbsgv/image/upload/h_96/v1776427289/logo-light_dyfohn.png"
+          alt="logo" />
+        <form id="search-form">
+          <input type="search" name="search-word" id="search-input" placeholder="Search word to get definition..." />
+          <button type="submit" id="search-btn">Search</button>
+        </form>
+      </nav>
+
+      <div id="display-area" class="hidden"></div>
+      <div id="success-msg"></div>
     </div>
+<<<<<<< HEAD
     <div id="display-area">
       <div id="title-container"></div>
       <div id="pronunciation-container"></div>
       <div id="meanings-container"></div>
     </div>
     <div id="success-msg"></div>
+=======
+>>>>>>> 8454296 (feat(ui): added glassmorphism styling and .card-bg utility)
   </div>
 
   <script src="./js/app.js"></script>

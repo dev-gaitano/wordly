@@ -33,10 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Definitions & synonyms
       const meanings = obj.meanings
-      let partOfSpeech = meanings[0]?.partOfSpeech || ""
+      let partOfSpeech = []
       const definitions = []
       let synonyms = []
-      meanings.forEach(meaning => {
+      meanings?.forEach(meaning => {
+        // Get parts of speech
+        partOfSpeech.push(meaning.partOfSpeech)
+
         // Get definitions
         meaning.definitions.forEach(definition => {
           definitions.push(definition.definition)
@@ -46,40 +49,99 @@ document.addEventListener("DOMContentLoaded", () => {
         synonyms.push(...meaning.synonyms)
       });
 
-      // Create display elements
+      // Create content display elements
+      const content = document.createElement("div")
+      content.setAttribute("id", "content-container")
+
+      // Main content
+      const mainContent = document.createElement("section")
+      mainContent.setAttribute("id", "main-content")
+      mainContent.classList.add("card-bg")
+
+      // content title
+      const contentTitle = document.createElement("div")
+      contentTitle.setAttribute("id", "content-title")
+
       const wordEl = document.createElement("h2")
       wordEl.innerText = word
+      contentTitle.appendChild(wordEl)
 
-      const phoneticEl = document.createElement("p")
-      phoneticEl.innerText = phonetic
+      const partOfSpeechEl = document.createElement("p")
+      partOfSpeechEl.innerText = partOfSpeech
+      contentTitle.appendChild(partOfSpeechEl)
+
+      mainContent.appendChild(contentTitle)
+
+      // phonetics
+      const phoneticsDiv = document.createElement("div")
+      phoneticsDiv.setAttribute("id", "phonetics-container")
 
       const phoneticAudioEl = document.createElement("audio")
       phoneticAudioEl.controls = true
+      phoneticsDiv.appendChild(phoneticAudioEl)
 
       const source = document.createElement("source")
       source.src = phoneticAudio
       source.type = "audio/mpeg"
+      phoneticAudioEl.appendChild(source)
 
-      const partOfSpeechEl = document.createElement("p")
-      partOfSpeechEl.innerText = partOfSpeech
+      const phoneticEl = document.createElement("p")
+      phoneticEl.innerText = phonetic
+      phoneticsDiv.appendChild(phoneticEl)
 
-      displayArea.appendChild(wordEl)
-      displayArea.appendChild(phoneticEl)
-      displayArea.appendChild(phoneticAudioEl)
-      phoneticAudioEl.appendChild(source);
-      displayArea.appendChild(partOfSpeechEl)
+      mainContent.appendChild(phoneticsDiv)
+
+      // definitions
+      const definitionsDiv = document.createElement("div")
+      definitionsDiv.setAttribute("id", "definitions-container")
 
       definitions.forEach((definition) => {
         const definitionEl = document.createElement("p")
         definitionEl.innerText = definition
-        displayArea.appendChild(definitionEl)
+        definitionsDiv.appendChild(definitionEl)
       })
+
+      mainContent.appendChild(definitionsDiv)
+
+      content.appendChild(mainContent)
+
+
+      // Secondary content
+      const secondaryContent = document.createElement("section")
+      secondaryContent.setAttribute("id", "secondary-content")
+
+      // synonyms
+      const synonymsDiv = document.createElement("div")
+      synonymsDiv.setAttribute("id", "synonyms-container")
+      synonymsDiv.classList.add("card-bg")
+
+      const synonymsTitle = document.createElement("h3")
+      synonymsTitle.innerText = "Synonyms"
+      synonymsDiv.appendChild(synonymsTitle)
 
       synonyms.forEach((synonym) => {
         const synonymsEl = document.createElement("p")
         synonymsEl.innerText = synonym
-        displayArea.appendChild(synonymsEl)
+        synonymsDiv.appendChild(synonymsEl)
       })
+
+      secondaryContent.appendChild(synonymsDiv)
+
+      // saved words
+      const savedDiv = document.createElement("div")
+      savedDiv.setAttribute("id", "saved-container")
+      savedDiv.classList.add("card-bg")
+
+      const savedTitle = document.createElement("h3")
+      savedTitle.innerText = "Saved words"
+      savedDiv.appendChild(savedTitle)
+
+      secondaryContent.appendChild(savedDiv)
+
+      content.appendChild(secondaryContent)
+
+
+      displayArea.appendChild(content)
     })
   }
 
@@ -88,12 +150,12 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault()
 
     // Search functionality
-    const word = searchInput.value
+    const word = searchInput.value.trim()
     const data = await fetchWordData(word)
-    searchInput.value = ""
 
     // Display
     displayArea.innerHTML = ""
+    displayArea.classList.remove("hidden")
     displayData(data)
   })
 })
