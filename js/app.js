@@ -29,21 +29,24 @@ document.addEventListener("DOMContentLoaded", () => {
       // Pronunciations
       const phonetic = obj.phonetic
       const phonetics = obj.phonetics
-      let phoneticAudio = phonetics[0]?.audio || ""
+      const phoneticAudio = phonetics[0]?.audio || ""
 
       // Definitions & synonyms
       const meanings = obj.meanings
-      let partOfSpeech = []
-      const definitions = []
-      let synonyms = []
-      let antonyms = []
+      const partOfSpeech = []
+      const combinedDefinitions = []
+      const synonyms = []
+      const antonyms = []
       meanings?.forEach(meaning => {
         // Get parts of speech
         partOfSpeech.push(meaning.partOfSpeech)
 
         // Get definitions
-        meaning.definitions.forEach(definition => {
-          definitions.push(definition.definition)
+        meaning.definitions.forEach(defObj => {
+          combinedDefinitions.push({
+            definition: defObj.definition,
+            example: defObj.example,
+          })
         })
 
         // Get synonyms
@@ -102,10 +105,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const definitionsDiv = document.createElement("div")
       definitionsDiv.setAttribute("id", "definitions-container")
 
-      definitions.forEach((definition) => {
+      combinedDefinitions.forEach((defObj) => {
         const definitionEl = document.createElement("p")
-        definitionEl.innerText = definition
+        definitionEl.innerText = defObj.definition
         definitionsDiv.appendChild(definitionEl)
+
+        if (defObj.example) {
+          const exampleEl = document.createElement("p")
+          exampleEl.innerText = `- " ${defObj.example}"`
+          exampleEl.style.fontStyle = "italic"
+          exampleEl.style.opacity = "0.7"
+          definitionsDiv.appendChild(exampleEl)
+        }
       })
 
       mainContent.appendChild(definitionsDiv)
@@ -197,12 +208,14 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       searchBtn.classList.add("info")
       setTimeout(() => searchBtn.classList.remove("info"), 1000)
+
       const infoMsg = document.createElement("div")
       infoMsg.classList.add("message", "info", "card-bg", "fade-el")
       infoMsg.innerHTML = `<h3>Oops! Word not found</h3><p>Try searching for another word</p>`
       setTimeout(() => {
         infoMsg.classList.add("show")
       }, 40)
+
       displayArea.appendChild(infoMsg)
     }
   })
