@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
       // Definitions & synonyms
       const meanings = obj.meanings
       const partOfSpeech = []
-      //const definitions = []
       const combinedDefinitions = []
       const synonyms = []
       const antonyms = []
@@ -43,10 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
         partOfSpeech.push(meaning.partOfSpeech)
 
         // Get definitions
-        //meaning.definitions.forEach(definition => {
-        //definitions.push(definition.definition)
-        //})
-        //
         meaning.definitions.forEach(defObj => {
           combinedDefinitions.push({
             definition: defObj.definition,
@@ -213,12 +208,14 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       searchBtn.classList.add("info")
       setTimeout(() => searchBtn.classList.remove("info"), 1000)
+
       const infoMsg = document.createElement("div")
       infoMsg.classList.add("message", "info", "card-bg", "fade-el")
       infoMsg.innerHTML = `<h3>Oops! Word not found</h3><p>Try searching for another word</p>`
       setTimeout(() => {
         infoMsg.classList.add("show")
       }, 40)
+
       displayArea.appendChild(infoMsg)
     }
   })
