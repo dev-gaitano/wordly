@@ -216,6 +216,14 @@ nav {
     padding: 16px;
   }
 
+  body {
+    min-height: 100svh;
+  }
+
+  .bg-blur {
+    min-height: 100svh;
+  }
+
   nav {
     flex-direction: column;
     align-items: flex-start;
